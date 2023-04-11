@@ -1,0 +1,443 @@
+{
+  "QA": {
+    "anat": {
+      "do": true
+    },
+    "func": {
+      "Basics": "on",
+      "FD": "on",
+      "Globals": "on",
+      "Motion": "on",
+      "Movie": "off",
+      "Voltera": "on",
+      "carpetPlot": true,
+      "do": true
+    },
+    "glm": {
+      "do": false
+    }
+  },
+  "anatOnly": false,
+  "bidsFilterFile": {
+    "bold": {
+      "modality": "func",
+      "suffix": "bold"
+    },
+    "fmap": {
+      "modality": "fmap"
+    },
+    "mp2rage": {
+      "modality": "anat",
+      "space": "",
+      "suffix": "MP2RAGE"
+    },
+    "roi": {
+      "modality": "roi",
+      "suffix": "mask"
+    },
+    "t1w": {
+      "modality": "anat",
+      "space": "",
+      "suffix": "T1w"
+    },
+    "t2w": {
+      "modality": "anat",
+      "suffix": "T2w"
+    },
+    "xfm": {
+      "modality": "anat",
+      "suffix": "xfm",
+      "to": "T1w"
+    }
+  },
+  "contrastList": [],
+  "dir": {
+    "derivatives": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives",
+    "input": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-preproc",
+    "jobs": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats/jobs/MVPAAud",
+    "output": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats",
+    "preproc": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-preproc",
+    "raw": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS",
+    "stats": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats"
+  },
+  "dryRun": false,
+  "dummy_scans": 0,
+  "funcVolToSelect": [],
+  "funcVoxelDims": [],
+  "fwhm": {
+    "contrast": 0,
+    "func": 2
+  },
+  "glm": {
+    "keepResiduals": false,
+    "maxNbVols": null,
+    "roibased": {
+      "do": false
+    },
+    "useDummyRegressor": false
+  },
+  "groups": [""],
+  "model": {
+    "designOnly": false,
+    "file": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/code/models/model-MVPAAud-trialbytrial.json",
+    "bm": {
+      "content": {
+        "Name": "MVPAAud-trialbytrial",
+        "BIDSModelVersion": "1.0.0",
+        "Description": "model for multivariate contrasts of auditory syllables in LipSpeech XP",
+        "Input": {
+          "task": ["MVPAAud"],
+          "space": ["IXI549Space"]
+        },
+        "Nodes": {
+          "Level": "Run",
+          "Name": "run_level_MVPAAud-trialbytrial",
+          "GroupBy": [
+            "run",
+            "subject"
+          ],
+          "Model": {
+            "X": [
+              "trial_type.S1fa",
+              "trial_type.S1la",
+              "trial_type.S1pa",
+              "trial_type.S1fi",
+              "trial_type.S1li",
+              "trial_type.S1pi",
+              "trial_type.S1fe",
+              "trial_type.S1le",
+              "trial_type.S1pe",
+              "trial_type.S2fa",
+              "trial_type.S2la",
+              "trial_type.S2pa",
+              "trial_type.S2fi",
+              "trial_type.S2li",
+              "trial_type.S2pi",
+              "trial_type.S2fe",
+              "trial_type.S2le",
+              "trial_type.S2pe",
+              "trial_type.S3fa",
+              "trial_type.S3la",
+              "trial_type.S3pa",
+              "trial_type.S3fi",
+              "trial_type.S3li",
+              "trial_type.S3pi",
+              "trial_type.S3fe",
+              "trial_type.S3le",
+              "trial_type.S3pe",
+              "trial_type.response",
+              "trans_?",
+              "rot_?",
+              "*outlier*"
+            ],
+            "HRF": {
+              "Variables": [
+                "trial_type.S1fa",
+                "trial_type.S1la",
+                "trial_type.S1pa",
+                "trial_type.S1fi",
+                "trial_type.S1li",
+                "trial_type.S1pi",
+                "trial_type.S1fe",
+                "trial_type.S1le",
+                "trial_type.S1pe",
+                "trial_type.S2fa",
+                "trial_type.S2la",
+                "trial_type.S2pa",
+                "trial_type.S2fi",
+                "trial_type.S2li",
+                "trial_type.S2pi",
+                "trial_type.S2fe",
+                "trial_type.S2le",
+                "trial_type.S2pe",
+                "trial_type.S3fa",
+                "trial_type.S3la",
+                "trial_type.S3pa",
+                "trial_type.S3fi",
+                "trial_type.S3li",
+                "trial_type.S3pi",
+                "trial_type.S3fe",
+                "trial_type.S3le",
+                "trial_type.S3pe"
+              ],
+              "Model": "spm"
+            },
+            "Type": "glm",
+            "Options": {
+              "HighPassFilterCutoffHz": 0.0078,
+              "Mask": ""
+            },
+            "Software": {
+              "SPM": {
+                "SerialCorrelation": "FAST"
+              }
+            }
+          },
+          "DummyContrasts": {
+            "Test": "t",
+            "Contrasts": [
+              "trial_type.S1fa",
+              "trial_type.S1la",
+              "trial_type.S1pa",
+              "trial_type.S1fi",
+              "trial_type.S1li",
+              "trial_type.S1pi",
+              "trial_type.S1fe",
+              "trial_type.S1le",
+              "trial_type.S1pe",
+              "trial_type.S2fa",
+              "trial_type.S2la",
+              "trial_type.S2pa",
+              "trial_type.S2fi",
+              "trial_type.S2li",
+              "trial_type.S2pi",
+              "trial_type.S2fe",
+              "trial_type.S2le",
+              "trial_type.S2pe",
+              "trial_type.S3fa",
+              "trial_type.S3la",
+              "trial_type.S3pa",
+              "trial_type.S3fi",
+              "trial_type.S3li",
+              "trial_type.S3pi",
+              "trial_type.S3fe",
+              "trial_type.S3le",
+              "trial_type.S3pe"
+            ]
+          }
+        }
+      },
+      "Name": "MVPAAud-trialbytrial",
+      "Description": "model for multivariate contrasts of auditory syllables in LipSpeech XP",
+      "BIDSModelVersion": "1.0.0",
+      "Input": {
+        "task": ["MVPAAud"],
+        "space": ["IXI549Space"]
+      },
+      "Nodes": [
+        {
+          "Level": "Run",
+          "Name": "run_level_MVPAAud-trialbytrial",
+          "GroupBy": [
+            "run",
+            "subject"
+          ],
+          "Model": {
+            "X": [
+              "trial_type.S1fa",
+              "trial_type.S1la",
+              "trial_type.S1pa",
+              "trial_type.S1fi",
+              "trial_type.S1li",
+              "trial_type.S1pi",
+              "trial_type.S1fe",
+              "trial_type.S1le",
+              "trial_type.S1pe",
+              "trial_type.S2fa",
+              "trial_type.S2la",
+              "trial_type.S2pa",
+              "trial_type.S2fi",
+              "trial_type.S2li",
+              "trial_type.S2pi",
+              "trial_type.S2fe",
+              "trial_type.S2le",
+              "trial_type.S2pe",
+              "trial_type.S3fa",
+              "trial_type.S3la",
+              "trial_type.S3pa",
+              "trial_type.S3fi",
+              "trial_type.S3li",
+              "trial_type.S3pi",
+              "trial_type.S3fe",
+              "trial_type.S3le",
+              "trial_type.S3pe",
+              "trial_type.response",
+              "trans_?",
+              "rot_?",
+              "*outlier*"
+            ],
+            "HRF": {
+              "Variables": [
+                "trial_type.S1fa",
+                "trial_type.S1la",
+                "trial_type.S1pa",
+                "trial_type.S1fi",
+                "trial_type.S1li",
+                "trial_type.S1pi",
+                "trial_type.S1fe",
+                "trial_type.S1le",
+                "trial_type.S1pe",
+                "trial_type.S2fa",
+                "trial_type.S2la",
+                "trial_type.S2pa",
+                "trial_type.S2fi",
+                "trial_type.S2li",
+                "trial_type.S2pi",
+                "trial_type.S2fe",
+                "trial_type.S2le",
+                "trial_type.S2pe",
+                "trial_type.S3fa",
+                "trial_type.S3la",
+                "trial_type.S3pa",
+                "trial_type.S3fi",
+                "trial_type.S3li",
+                "trial_type.S3pi",
+                "trial_type.S3fe",
+                "trial_type.S3le",
+                "trial_type.S3pe"
+              ],
+              "Model": "spm"
+            },
+            "Type": "glm",
+            "Options": {
+              "HighPassFilterCutoffHz": 0.0078,
+              "Mask": ""
+            },
+            "Software": {
+              "SPM": {
+                "SerialCorrelation": "FAST"
+              }
+            }
+          },
+          "DummyContrasts": {
+            "Test": "t",
+            "Contrasts": [
+              "trial_type.S1fa",
+              "trial_type.S1la",
+              "trial_type.S1pa",
+              "trial_type.S1fi",
+              "trial_type.S1li",
+              "trial_type.S1pi",
+              "trial_type.S1fe",
+              "trial_type.S1le",
+              "trial_type.S1pe",
+              "trial_type.S2fa",
+              "trial_type.S2la",
+              "trial_type.S2pa",
+              "trial_type.S2fi",
+              "trial_type.S2li",
+              "trial_type.S2pi",
+              "trial_type.S2fe",
+              "trial_type.S2le",
+              "trial_type.S2pe",
+              "trial_type.S3fa",
+              "trial_type.S3la",
+              "trial_type.S3pa",
+              "trial_type.S3fi",
+              "trial_type.S3li",
+              "trial_type.S3pi",
+              "trial_type.S3fe",
+              "trial_type.S3le",
+              "trial_type.S3pe"
+            ]
+          }
+        }
+      ],
+      "Edges": [],
+      "tolerant": true,
+      "verbose": true
+    }
+  },
+  "msg": {
+    "color": ""
+  },
+  "pipeline": {
+    "name": "bidspm",
+    "type": "stats"
+  },
+  "query": {
+    "modality": [
+      "anat",
+      "func"
+    ]
+  },
+  "realign": {
+    "useUnwarp": true
+  },
+  "rename": true,
+  "results": {
+    "MC": "FWE",
+    "atlas": "Neuromorphometrics",
+    "binary": false,
+    "csv": true,
+    "k": 0,
+    "montage": {
+      "background": "/Applications/spm12/canonical/avg152T1.nii",
+      "do": false,
+      "orientation": "axial",
+      "slices": []
+    },
+    "name": [""],
+    "nidm": true,
+    "nodeName": "",
+    "p": 0.05,
+    "png": true,
+    "threshSpm": false,
+    "useMask": false
+  },
+  "segment": {
+    "biasfwhm": 60,
+    "do": true,
+    "force": false,
+    "samplingDistance": 3
+  },
+  "skullstrip": {
+    "do": true,
+    "force": false,
+    "mean": false,
+    "threshold": 0.75
+  },
+  "space": ["IXI549Space"],
+  "stc": {
+    "referenceSlice": [],
+    "skip": false,
+    "sliceOrder": []
+  },
+  "subjects": ["04"],
+  "taskName": ["MVPAAud"],
+  "tolerant": true,
+  "toolbox": {
+    "MACS": {
+      "model": {
+        "files": []
+      }
+    },
+    "rsHRF": {
+      "vox_rsHRF": {
+        "Denoising": {
+          "BPF": [],
+          "Despiking": 0,
+          "Detrend": 0,
+          "generic": [],
+          "which1st": 3
+        },
+        "HRFE": {
+          "cvi": 0,
+          "fmri_t": 1,
+          "fmri_t0": 1,
+          "hrfdeconv": 1,
+          "hrflen": 32,
+          "hrfm": 2,
+          "localK": 2,
+          "mdelay": [4,8],
+          "num_basis": null,
+          "thr": 1,
+          "tmask": null
+        },
+        "connectivity": [],
+        "prefix": "deconv_",
+        "rmoutlier": 0,
+        "savedata": {
+          "deconv_save": 0,
+          "hrfmat_save": 1,
+          "hrfnii_save": 1,
+          "job_save": 0
+        }
+      }
+    }
+  },
+  "useBidsSchema": false,
+  "useFieldmaps": true,
+  "verbosity": 2,
+  "zeropad": 2
+}

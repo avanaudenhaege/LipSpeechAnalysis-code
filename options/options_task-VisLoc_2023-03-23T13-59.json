@@ -1,0 +1,422 @@
+{
+  "QA": {
+    "glm": {
+      "do": false
+    },
+    "anat": {
+      "do": true
+    },
+    "func": {
+      "do": true,
+      "carpetPlot": true,
+      "Motion": "on",
+      "FD": "on",
+      "Voltera": "on",
+      "Globals": "on",
+      "Movie": "off",
+      "Basics": "on"
+    }
+  },
+  "anatOnly": false,
+  "bidsFilterFile": {
+    "fmap": {
+      "modality": "fmap"
+    },
+    "bold": {
+      "modality": "func",
+      "suffix": "bold"
+    },
+    "t2w": {
+      "modality": "anat",
+      "suffix": "T2w"
+    },
+    "t1w": {
+      "modality": "anat",
+      "space": "",
+      "suffix": "T1w"
+    },
+    "mp2rage": {
+      "modality": "anat",
+      "space": "",
+      "suffix": "MP2RAGE"
+    },
+    "roi": {
+      "modality": "roi",
+      "suffix": "mask"
+    },
+    "xfm": {
+      "modality": "anat",
+      "suffix": "xfm",
+      "to": "T1w"
+    }
+  },
+  "contrastList": [],
+  "dir": {
+    "derivatives": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives",
+    "input": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-preproc",
+    "jobs": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats/jobs/VisLoc",
+    "output": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats",
+    "preproc": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-preproc",
+    "raw": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS",
+    "roi": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-roi",
+    "stats": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/derivatives/bidspm-stats"
+  },
+  "dryRun": false,
+  "dummy_scans": 0,
+  "funcVolToSelect": [],
+  "funcVoxelDims": [],
+  "fwhm": {
+    "contrast": 0,
+    "func": 6
+  },
+  "glm": {
+    "keepResiduals": false,
+    "maxNbVols": null,
+    "roibased": {
+      "do": false
+    },
+    "useDummyRegressor": false
+  },
+  "groups": [""],
+  "model": {
+    "designOnly": false,
+    "file": "/Users/alice/Documents/DATA/LipSpeechPilot_analysis/LipSpeech_BIDS/code/models/model-VisLoc.json",
+    "bm": {
+      "content": {
+        "Name": "VisLoc",
+        "BIDSModelVersion": "1.0.0",
+        "Description": "model for localizer contrasts - visual localizer for FFA, VWFA and PPA",
+        "Input": {
+          "task": ["VisLoc"],
+          "space": ["IXI549Space"]
+        },
+        "Nodes": [
+          {
+            "Level": "Run",
+            "Name": "run_level",
+            "GroupBy": [
+              "run",
+              "subject"
+            ],
+            "Model": {
+              "X": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word",
+                "trial_type.target",
+                "trial_type.response",
+                "trans_?",
+                "rot_?",
+                "*outlier*"
+              ],
+              "HRF": {
+                "Variables": [
+                  "trial_type.house",
+                  "trial_type.face",
+                  "trial_type.word",
+                  "trial_type.target",
+                  "trial_type.response"
+                ],
+                "Model": "spm"
+              },
+              "Type": "glm",
+              "Options": {
+                "HighPassFilterCutoffHz": 0.0078,
+                "Mask": ""
+              },
+              "Software": {
+                "SPM": {
+                  "SerialCorrelation": "FAST"
+                }
+              }
+            },
+            "DummyContrasts": {
+              "Test": "t",
+              "Contrasts": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word",
+                "trial_type.target",
+                "trial_type.response"
+              ]
+            },
+            "Contrasts": [
+              {
+                "Name": "face_gt_others",
+                "ConditionList": [
+                  "trial_type.house",
+                  "trial_type.face",
+                  "trial_type.word"
+                ],
+                "Weights": [-1,2,-1],
+                "Test": "t"
+              },
+              {
+                "Name": "word_gt_others",
+                "ConditionList": [
+                  "trial_type.house",
+                  "trial_type.face",
+                  "trial_type.word"
+                ],
+                "Weights": [-1,-1,2],
+                "Test": "t"
+              },
+              {
+                "Name": "house_gt_others",
+                "ConditionList": [
+                  "trial_type.house",
+                  "trial_type.face",
+                  "trial_type.word"
+                ],
+                "Weights": [2,-1,-1],
+                "Test": "t"
+              }
+            ]
+          },
+          {
+            "Level": "Subject",
+            "Name": "subject_level",
+            "GroupBy": [
+              "contrast",
+              "subject"
+            ],
+            "Model": {
+              "X": 1,
+              "Type": "glm"
+            },
+            "DummyContrasts": {
+              "Test": "t"
+            }
+          }
+        ]
+      },
+      "Name": "VisLoc",
+      "Description": "model for localizer contrasts - visual localizer for FFA, VWFA and PPA",
+      "BIDSModelVersion": "1.0.0",
+      "Input": {
+        "task": ["VisLoc"],
+        "space": ["IXI549Space"]
+      },
+      "Nodes": [
+        {
+          "Level": "Run",
+          "Name": "run_level",
+          "GroupBy": [
+            "run",
+            "subject"
+          ],
+          "Model": {
+            "X": [
+              "trial_type.house",
+              "trial_type.face",
+              "trial_type.word",
+              "trial_type.target",
+              "trial_type.response",
+              "trans_?",
+              "rot_?",
+              "*outlier*"
+            ],
+            "HRF": {
+              "Variables": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word",
+                "trial_type.target",
+                "trial_type.response"
+              ],
+              "Model": "spm"
+            },
+            "Type": "glm",
+            "Options": {
+              "HighPassFilterCutoffHz": 0.0078,
+              "Mask": ""
+            },
+            "Software": {
+              "SPM": {
+                "SerialCorrelation": "FAST"
+              }
+            }
+          },
+          "DummyContrasts": {
+            "Test": "t",
+            "Contrasts": [
+              "trial_type.house",
+              "trial_type.face",
+              "trial_type.word",
+              "trial_type.target",
+              "trial_type.response"
+            ]
+          },
+          "Contrasts": [
+            {
+              "Name": "face_gt_others",
+              "ConditionList": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word"
+              ],
+              "Weights": [-1,2,-1],
+              "Test": "t"
+            },
+            {
+              "Name": "word_gt_others",
+              "ConditionList": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word"
+              ],
+              "Weights": [-1,-1,2],
+              "Test": "t"
+            },
+            {
+              "Name": "house_gt_others",
+              "ConditionList": [
+                "trial_type.house",
+                "trial_type.face",
+                "trial_type.word"
+              ],
+              "Weights": [2,-1,-1],
+              "Test": "t"
+            }
+          ]
+        },
+        {
+          "Level": "Subject",
+          "Name": "subject_level",
+          "GroupBy": [
+            "contrast",
+            "subject"
+          ],
+          "Model": {
+            "X": 1,
+            "Type": "glm"
+          },
+          "DummyContrasts": {
+            "Test": "t"
+          }
+        }
+      ],
+      "Edges": [
+        {
+          "Source": "run_level",
+          "Destination": "subject_level"
+        }
+      ],
+      "tolerant": true,
+      "verbose": true
+    }
+  },
+  "msg": {
+    "color": ""
+  },
+  "pipeline": {
+    "name": "bidspm",
+    "type": "stats"
+  },
+  "query": {
+    "modality": [
+      "anat",
+      "func"
+    ]
+  },
+  "realign": {
+    "useUnwarp": true
+  },
+  "rename": true,
+  "results": {
+    "MC": "FWE",
+    "atlas": "Neuromorphometrics",
+    "binary": false,
+    "csv": true,
+    "k": 0,
+    "montage": {
+      "background": {
+        "suffix": "T1w",
+        "desc": "preproc",
+        "modality": "anat"
+      },
+      "do": true,
+      "orientation": "axial",
+      "slices": [-16,-14,-12,-10,-8,-6,-4,-2,0]
+    },
+    "name": [
+      "face_gt_others",
+      "word_gt_others",
+      "house_gt_others"
+    ],
+    "nidm": true,
+    "nodeName": "subject_level",
+    "p": 0.05,
+    "png": true,
+    "threshSpm": false,
+    "useMask": false
+  },
+  "roi": {
+    "atlas": "neuromorphometrics",
+    "name": [""]
+  },
+  "segment": {
+    "do": true,
+    "force": false,
+    "biasfwhm": 60,
+    "samplingDistance": 3
+  },
+  "skullstrip": {
+    "do": true,
+    "force": false,
+    "threshold": 0.75,
+    "mean": false
+  },
+  "space": ["IXI549Space"],
+  "stc": {
+    "referenceSlice": [],
+    "skip": false
+  },
+  "subjects": ["06"],
+  "taskName": ["VisLoc"],
+  "tolerant": true,
+  "toolbox": {
+    "MACS": {
+      "model": {
+        "files": []
+      }
+    },
+    "rsHRF": {
+      "vox_rsHRF": {
+        "Denoising": {
+          "generic": [],
+          "Detrend": 0,
+          "BPF": [],
+          "Despiking": 0,
+          "which1st": 3
+        },
+        "HRFE": {
+          "hrfm": 2,
+          "hrflen": 32,
+          "num_basis": null,
+          "mdelay": [4,8],
+          "cvi": 0,
+          "fmri_t": 1,
+          "fmri_t0": 1,
+          "thr": 1,
+          "localK": 2,
+          "tmask": null,
+          "hrfdeconv": 1
+        },
+        "rmoutlier": 0,
+        "connectivity": [],
+        "savedata": {
+          "deconv_save": 0,
+          "hrfmat_save": 1,
+          "hrfnii_save": 1,
+          "job_save": 0
+        },
+        "prefix": "deconv_"
+      }
+    }
+  },
+  "useBidsSchema": false,
+  "useFieldmaps": true,
+  "verbosity": 2,
+  "zeropad": 2
+}

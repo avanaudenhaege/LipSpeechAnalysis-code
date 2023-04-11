@@ -1,0 +1,157 @@
+{
+  "Name": "loc",
+  "BIDSModelVersion": "1.0.0",
+  "Description": "model for MVPA",
+  "Input": {
+    "task": [
+      "signMVPA"
+    ],
+    "space": [
+      "IXI549Space"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level_signMVPA_multi_actorMERGED",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "cpp_spm",
+        "Instructions": [
+          {
+            "Name": "Replace",
+            "Input": [
+                "stim_name"
+            ],
+            "Replace": [
+                    {"key": "NoStim1[FM]", "value": "NoStim1"},
+                    {"key": "NoStim2[FM]", "value": "NoStim2"},
+                    {"key": "NoStim3[FM]", "value": "NoStim3"},
+                    {"key": "NoStim4[FM]", "value": "NoStim4"},
+                    {"key": "NoStim5[FM]", "value": "NoStim5"},
+                    {"key": "NoStim6[FM]", "value": "NoStim6"},
+                    {"key": "NoStim7[FM]", "value": "NoStim7"},
+                    {"key": "NoStim8[FM]", "value": "NoStim8"},
+                    {"key": "NoStim9[FM]", "value": "NoStim9"},
+                    {"key": "Stim1[FM]",   "value": "Stim1"},
+                    {"key": "Stim1SC[FM]", "value": "Stim1SC"},
+                    {"key": "Stim1VC[FM]", "value": "Stim1VC"},
+                    {"key": "Stim2[FM]",   "value": "Stim2"},
+                    {"key": "Stim2SC[FM]", "value": "Stim2SC"},
+                    {"key": "Stim2VC[FM]", "value": "Stim2VC"},
+                    {"key": "Stim3[FM]",   "value": "Stim3"},
+                    {"key": "Stim3SC[FM]", "value": "Stim3SC"},
+                    {"key": "Stim3VC[FM]", "value": "Stim3VC"}
+             ],
+             "Attribute": "value"
+          },
+          {
+              "Name": "Concatenate",
+              "Input": [
+                  "trial_type",
+                  "stim_name"
+              ],
+              "Output": "trial_type_name"
+          },
+          {
+              "Name": "Replace",
+              "Input": [
+                  "trial_type_name"
+              ],
+              "Replace": [
+                  {
+                      "key": "target.*",
+                      "value": "target"
+                  }
+              ],
+              "Attribute": "value"
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          "trial_type_name.sign_Stim1",
+          "trial_type_name.sign_Stim1SC",
+          "trial_type_name.sign_Stim1VC",
+          "trial_type_name.sign_Stim2",
+          "trial_type_name.sign_Stim2SC",
+          "trial_type_name.sign_Stim2VC",
+          "trial_type_name.sign_Stim3",
+          "trial_type_name.sign_Stim3SC",
+          "trial_type_name.sign_Stim3VC",
+          "trial_type_name.no_sign_NoStim1",
+          "trial_type_name.no_sign_NoStim2",
+          "trial_type_name.no_sign_NoStim3",
+          "trial_type_name.no_sign_NoStim4",
+          "trial_type_name.no_sign_NoStim5",
+          "trial_type_name.no_sign_NoStim6",
+          "trial_type_name.no_sign_NoStim7",
+          "trial_type_name.no_sign_NoStim8",
+          "trial_type_name.no_sign_NoStim9",
+          "trans_?",
+          "rot_?",
+          "*outlier*"
+        ],
+        "HRF": {
+          "Variables": [
+            "trial_type_name.sign_Stim1",
+            "trial_type_name.sign_Stim1SC",
+            "trial_type_name.sign_Stim1VC",
+            "trial_type_name.sign_Stim2",
+            "trial_type_name.sign_Stim2SC",
+            "trial_type_name.sign_Stim2VC",
+            "trial_type_name.sign_Stim3",
+            "trial_type_name.sign_Stim3SC",
+            "trial_type_name.sign_Stim3VC",
+            "trial_type_name.no_sign_NoStim1",
+            "trial_type_name.no_sign_NoStim2",
+            "trial_type_name.no_sign_NoStim3",
+            "trial_type_name.no_sign_NoStim4",
+            "trial_type_name.no_sign_NoStim5",
+            "trial_type_name.no_sign_NoStim6",
+            "trial_type_name.no_sign_NoStim7",
+            "trial_type_name.no_sign_NoStim8",
+            "trial_type_name.no_sign_NoStim9"
+          ],
+          "Model": "spm"
+        },
+        "Type": "glm",
+        "Options": {
+          "HighPassFilterCutoffHz": 0.0078,
+          "Mask": ""
+        },
+        "Software": {
+          "SPM": {
+            "SerialCorrelation": "FAST"
+          }
+        }
+      },
+      "DummyContrasts": {
+          "Test": "t",
+          "Contrasts": [
+            "trial_type_name.sign_Stim1",
+            "trial_type_name.sign_Stim1SC",
+            "trial_type_name.sign_Stim1VC",
+            "trial_type_name.sign_Stim2",
+            "trial_type_name.sign_Stim2SC",
+            "trial_type_name.sign_Stim2VC",
+            "trial_type_name.sign_Stim3",
+            "trial_type_name.sign_Stim3SC",
+            "trial_type_name.sign_Stim3VC",
+            "trial_type_name.no_sign_NoStim1",
+            "trial_type_name.no_sign_NoStim2",
+            "trial_type_name.no_sign_NoStim3",
+            "trial_type_name.no_sign_NoStim4",
+            "trial_type_name.no_sign_NoStim5",
+            "trial_type_name.no_sign_NoStim6",
+            "trial_type_name.no_sign_NoStim7",
+            "trial_type_name.no_sign_NoStim8",
+            "trial_type_name.no_sign_NoStim9"
+          ]
+      }
+    }
+  ]
+}

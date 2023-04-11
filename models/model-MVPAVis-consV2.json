@@ -1,0 +1,101 @@
+{
+  "Name": "MVPAVis-cons",
+  "BIDSModelVersion": "1.0.0",
+  "Description": "model for multivariate contrasts of visual consonants in LipSpeech XP",
+  "Input": {
+    "task": [
+      "MVPAVis"
+    ],
+    "space": [
+      "IXI549Space"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "MVPAVis-cons-othermodel",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+        "Transformer": "cpp_spm",
+        "Instructions": [
+          {
+            "Name": "Replace",
+            "Input": [
+                "trial_type"
+            ],
+            "Replace": [
+                    {"key": "S1fa", "value": "f"},
+                    {"key": "S1la", "value": "l"},
+                    {"key": "S1pa", "value": "p"},
+                    {"key": "S1fi", "value": "f"},
+                    {"key": "S1li", "value": "l"},
+                    {"key": "S1pi", "value": "p"},
+                    {"key": "S1fe", "value": "f"},
+                    {"key": "S1le", "value": "l"},
+                    {"key": "S1pe", "value": "p"},
+                    {"key": "S2fa", "value": "f"},
+                    {"key": "S2la", "value": "l"},
+                    {"key": "S2pa", "value": "p"},
+                    {"key": "S2fi", "value": "f"},
+                    {"key": "S2li", "value": "l"},
+                    {"key": "S2pi", "value": "p"},
+                    {"key": "S2fe", "value": "f"},
+                    {"key": "S2le", "value": "l"},
+                    {"key": "S2pe", "value": "p"},
+                    {"key": "S3fa", "value": "f"},
+                    {"key": "S3la", "value": "l"},
+                    {"key": "S3pa", "value": "p"},
+                    {"key": "S3fi", "value": "f"},
+                    {"key": "S3li", "value": "l"},
+                    {"key": "S3pi", "value": "p"},
+                    {"key": "S3fe", "value": "f"},
+                    {"key": "S3le", "value": "l"},
+                    {"key": "S3pe", "value": "p"}
+             ],
+             "Attribute": "value"
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          "trial_type.f",
+          "trial_type.l",
+          "trial_type.p",
+          "trial_type.response",
+          "trans_?",
+          "rot_?",
+          "*outlier*"
+        ],
+        "HRF": {
+          "Variables": [
+            "trial_type.f",
+            "trial_type.l",
+            "trial_type.p"
+          ],
+          "Model": "spm"
+        },
+        "Type": "glm",
+        "Options": {
+          "HighPassFilterCutoffHz": 0.0078,
+          "Mask": ""
+        },
+        "Software": {
+          "SPM": {
+            "SerialCorrelation": "FAST"
+          }
+        }
+      },
+      "DummyContrasts": {
+          "Test": "t",
+          "Contrasts": [
+            "trial_type.f",
+            "trial_type.l",
+            "trial_type.p"
+          ]
+      }
+    }
+  ]
+}

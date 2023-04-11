@@ -1,0 +1,101 @@
+{
+  "Name": "signMVPA",
+  "BIDSModelVersion": "1.0.0",
+  "Description": "model for signMVPA univariate contrasts - sign vs non-signs",
+  "Input": {
+    "task": [
+      "signMVPA"
+    ],
+    "space": [
+      "IXI549Space"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "run_level",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Model": {
+        "X": [
+          "trial_type.sign",
+          "trial_type.no_sign",
+          "trial_type.target",
+          "trans_?",
+          "rot_?"
+        ],
+        "HRF": {
+          "Variables": [
+            "trial_type.sign",
+            "trial_type.no_sign",
+            "trial_type.target"
+          ],
+          "Model": "spm"
+        },
+        "Type": "glm",
+        "Options": {
+          "HighPassFilterCutoffHz": 0.0078,
+          "Mask": ""
+        },
+        "Software": {
+          "SPM": {
+            "SerialCorrelation": "FAST"
+          }
+        }
+      },
+      "DummyContrasts": {
+        "Test": "t",
+        "Contrasts": [
+          "trial_type.sign",
+          "trial_type.no_sign",
+          "trial_type.target"
+        ]
+      },
+      "Contrasts": [
+        {
+          "Name": "sign_gt_no_sign",
+          "ConditionList": [
+            "trial_type.sign",
+            "trial_type.no_sign"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "no_sign_gt_sign",
+          "ConditionList": [
+            "trial_type.sign",
+            "trial_type.no_sign"
+          ],
+          "Weights": [
+            -1,
+            1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    {
+      "Level": "Subject",
+      "Name": "subject_level",
+      "GroupBy": [
+        "contrast",
+        "subject"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    }
+  ]
+}

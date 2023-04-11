@@ -1,0 +1,121 @@
+{
+  "Name": "signMVPAtrialByTrial",
+  "BIDSModelVersion": "1.0.0",
+  "Description": "model for signMVPA multivariate contrasts - sign vs non-signs",
+  "Input": {
+    "task": [
+      "signMVPA"
+    ],
+    "space": [
+      "IXI549Space"
+    ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "Trial by trial",
+      "GroupBy": [
+        "run",
+        "subject"
+      ],
+      "Transformations": {
+          "Description": "We merge the trial_type and trial_num to create a unique identifier for each trial. And then we rename all the target_* events to just be target.",
+          "Transformer": "cpp_spm",
+          "Instructions": [
+              {
+                  "Name": "Concatenate",
+                  "Input": [
+                      "trial_type",
+                      "stim_name"
+                  ],
+                  "Output": "trial_type_name"
+              },
+              {
+                  "Name": "Replace",
+                  "Input": [
+                      "trial_type_name"
+                  ],
+                  "Replace": [
+                      {
+                          "key": "target.*",
+                          "value": "target"
+                      }
+                  ],
+                  "Attribute": "value"
+              }
+          ]
+      },
+      "Model": {
+          "X": [
+              "trial_type_name.sign*",
+              "trial_type_name.no_sign*",
+              "trial_type_name.target*",
+              "trans_?",
+              "rot_?",
+              "*outlier*"
+          ],
+          "HRF": {
+              "Variables": [
+                "trial_type_name.sign*",
+                "trial_type_name.no_sign*",
+                "trial_type_name.target*"
+              ],
+              "Model": "DoubleGamma"
+          },
+          "Type": "glm",
+          "Options": {
+              "HighPassFilterCutoffHz": 0.0078,
+              "Mask": ""
+          },
+          "Software": {
+              "SPM": {
+                  "SerialCorrelation": "FAST"
+              }
+          }
+      },
+      "DummyContrasts": {
+          "Test": "t",
+          "Contrasts": [
+            "trial_type_name.sign_Stim1F",
+ "trial_type_name.sign_Stim1M",
+ "trial_type_name.sign_Stim1SCF",
+ "trial_type_name.sign_Stim1SCM",
+ "trial_type_name.sign_Stim1VCF",
+ "trial_type_name.sign_Stim1VCM",
+ "trial_type_name.sign_Stim2F",
+ "trial_type_name.sign_Stim2M",
+ "trial_type_name.sign_Stim2SCF",
+ "trial_type_name.sign_Stim2SCM",
+ "trial_type_name.sign_Stim2VCF",
+ "trial_type_name.sign_Stim2VCM",
+ "trial_type_name.sign_Stim3F",
+ "trial_type_name.sign_Stim3M",
+ "trial_type_name.sign_Stim3SCF",
+ "trial_type_name.sign_Stim3SCM",
+ "trial_type_name.sign_Stim3VCF",
+ "trial_type_name.sign_Stim3VCM",
+ "trial_type_name.no_sign_NoStim1F",
+ "trial_type_name.no_sign_NoStim1M",
+ "trial_type_name.no_sign_NoStim2F",
+ "trial_type_name.no_sign_NoStim2M",
+ "trial_type_name.no_sign_NoStim3F",
+ "trial_type_name.no_sign_NoStim3M",
+ "trial_type_name.no_sign_NoStim4F",
+ "trial_type_name.no_sign_NoStim4M",
+ "trial_type_name.no_sign_NoStim5F",
+ "trial_type_name.no_sign_NoStim5M",
+ "trial_type_name.no_sign_NoStim6F",
+ "trial_type_name.no_sign_NoStim6M",
+ "trial_type_name.no_sign_NoStim7F",
+ "trial_type_name.no_sign_NoStim7M",
+ "trial_type_name.no_sign_NoStim8F",
+ "trial_type_name.no_sign_NoStim8M",
+ "trial_type_name.no_sign_NoStim9F",
+ "trial_type_name.no_sign_NoStim9M"
+
+          ]
+      }
+  }
+
+  ]
+  }
